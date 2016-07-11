@@ -1,4 +1,4 @@
-crud-mongoose-request
+crud-mongoose-simple
 ============
 
 Simple List, Create, Read, Update and Delete requests for a given Mongoose model
@@ -6,7 +6,7 @@ Simple List, Create, Read, Update and Delete requests for a given Mongoose model
 ## Install
 
 ```bash
-$ npm install crud-mongoose-request
+$ npm install crud-mongoose-simple
 ```
 
 ## Usage
