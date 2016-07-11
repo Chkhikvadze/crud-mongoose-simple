@@ -27,14 +27,14 @@ crudGenerator(options);
 var express = require('express');
 var router = express.Router();
 
-var userModel = require('./model/user');
-var crudController = require('crud-mongoose-simple')({model:userModel});
+var personModel = require('./model/person');
+var crudController = require('crud-mongoose-simple')({model:personModel});
 
-router.route('/user/')
+router.route('/person/')
     .get(crudController.list) // get all items
     .post(crudController.create); // Create new Item
 
-router.route('/user/:id')
+router.route('/person/:id')
     .get(crudController.read) // Get Item by Id
     .put(crudController.update) // Update an Item with a given Id
     .delete(crudController.delete); // Delete and Item by Id
@@ -42,6 +42,9 @@ router.route('/user/:id')
 
 ##Example call from client
 ```js
+
+Get List with query params
+
 var query = { where : {}, select : {},  skip: 10, limit: 20 };
 
 query.where= {
