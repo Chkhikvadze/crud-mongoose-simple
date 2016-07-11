@@ -1,12 +1,12 @@
-crud-mongoose-simple
+crud-mongoose-request
 ============
 
-Simple Create, Read, Update and Delete requests for a given Mongoose model
+Simple List, Create, Read, Update and Delete requests for a given Mongoose model
 
 ## Install
 
 ```bash
-$ npm install crud-mongoose-simple
+$ npm install crud-mongoose-request
 ```
 
 ## Usage
@@ -21,11 +21,9 @@ $ npm install crud-mongoose-simple
 crudGenerator(options);
 ```
 
-
 ## Example
 
-```js server
-
+```js
 var express = require('express');
 var router = express.Router();
 
@@ -40,27 +38,4 @@ router.route('/user/:id')
     .get(crudController.read) // Get Item by Id
     .put(crudController.update) // Update an Item with a given Id
     .delete(crudController.delete); // Delete and Item by Id
-
-```
-
-## Call From Client
-
-```Get List
-var query = { where : {}, select : {},  skip: 10, limit: 20 };
-
-query.where= {
-    occupation: /host/,
-    'name.last': 'Ghost',
-    age: { $gt: 17, $lt: 66 },
-    likes: { $in: ['vaporizing', 'talking'] }
-};
-
-query.select('name occupation');
-
-query.sort('-occupation');
-
-//http get
-$.get('http://localhost:3000/api/person/list', query, function(data, status){
-    console.log(data);
-});
 ```
