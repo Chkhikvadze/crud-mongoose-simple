@@ -1,6 +1,6 @@
 {
   "name": "crud-mongoose-simple",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "crud mongoose",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Chkhikvadze/crud-mongoose-request.git"
+    "url": "https://github.com/Chkhikvadze/crud-mongoose-simple.git"
   },
   "keywords": [
     "crud",
