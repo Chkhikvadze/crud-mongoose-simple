@@ -39,3 +39,23 @@ router.route('/user/:id')
     .put(crudController.update) // Update an Item with a given Id
     .delete(crudController.delete); // Delete and Item by Id
 ```
+
+##Example call from client
+```js
+var query = { where : {}, select : {},  skip: 10, limit: 20 };
+
+query.where= {
+    occupation: /host/,
+    'name.last': 'Ghost',
+    age: { $gt: 17, $lt: 66 },
+    likes: { $in: ['vaporizing', 'talking'] }
+};
+
+query.select('name occupation');
+
+query.sort('-occupation');
+
+$.get('http://localhost:3000/api/person/list', query, function(data, status){
+    alert("Data: " + data + "\nStatus: " + status);
+});
+```
