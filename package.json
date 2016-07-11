@@ -1,0 +1,23 @@
+{
+  "name": "crud-mongoose-request",
+  "version": "1.1.0",
+  "description": "crud mongoose",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Chkhikvadze/crud-mongoose-request.git"
+  },
+  "keywords": [
+    "crud",
+    "mongoose"
+  ],
+  "author": "Giga Chkhikvadze (http://chkhikvadze.com/)",
+  "license": "ISC",
+  "devDependencies": {
+    "debug": "^2.2.0",
+    "mongoose": "^4.5.3"
+  }
+}
