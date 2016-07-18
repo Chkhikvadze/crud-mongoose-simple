@@ -1,6 +1,6 @@
 {
   "name": "crud-mongoose-simple",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "description": "crud mongoose",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,9 @@
   "author": "Giga Chkhikvadze (http://chkhikvadze.com/)",
   "license": "ISC",
   "devDependencies": {
-    "debug": "^2.2.0",
-    "mongoose": "^4.5.3"
+    "debug": "^2.2.0"
+  },
+  "dependencies": {
+    "mongoose": "^4.5.5"
   }
 }

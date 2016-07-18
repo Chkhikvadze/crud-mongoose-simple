@@ -91,13 +91,27 @@ $.get('http://localhost:3000/api/person/list', query, function(data, status){
 });
 ```
 
+##Creat
+```js
+
+var data = {
+    name : {first : "Giga",
+            last : "Chkhikvadze" },
+    age : 50
+}
+
+$.post('http://localhost:3000/api/person/', data, function(result){
+    console.log(result);
+});
+```
+
 ##Read
 ```js
 
 var id = '578d33f2d0920b0db20f8643';
 
-$.get('http://localhost:3000/api/person/' + id, function(data, status){
-    alert("Data: " + data + "\nStatus: " + status);
+$.get('http://localhost:3000/api/person/' + id, function(result, status){
+     console.log(result);
 });
 ```
 
@@ -108,7 +122,7 @@ var id = '578d33f2d0920b0db20f8643';
 
 var data = {
     name : {first : "Giga",
-            last : "Chkhikvadze },
+            last : "Chkhikvadze" },
     age : 50
 }
 
@@ -116,7 +130,7 @@ $.ajax({
     url: 'http://localhost:3000/api/person/' + id,
     type: 'PUT',
     success: function(result) {
-        // Do something with the result
+        console.log(result);
     }
 });
 ```
@@ -130,7 +144,7 @@ $.ajax({
     url: 'http://localhost:3000/api/person/' + id,
     type: 'DELETE',
     success: function(result) {
-        // Do something with the result
+        console.log(result);
     }
 });
 ```
