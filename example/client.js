@@ -17,8 +17,8 @@ function getPersonList(){
 
     query.sort = '-occupation';
 
-    $.get('http://localhost:3000/api/person/list', query, function(data, status){
-        alert("Data: " + data + "\nStatus: " + status);
+    $.get('http://localhost:3000/api/person/list', query, function(result, status){
+		console.log(result);
     });
 }
 
@@ -32,8 +32,8 @@ function getPersonListByPagination(){
 
     query.sort = '-occupation';
 
-    $.get('http://localhost:3000/api/person/list', query, function(data, status){
-        alert("Data: " + data + "\nStatus: " + status);
+    $.get('http://localhost:3000/api/person/list', query, function(result, status){
+		console.log(result);
     });
 }
 
