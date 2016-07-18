@@ -51,7 +51,7 @@ router.route('/person/:id')
     .delete(crudController.delete); // Delete and Item by Id
 ```
 
-##Example Call From Client by jQuery:
+##Example Call From Client Side By jQuery:
 
 ## List
 ```js
@@ -91,7 +91,7 @@ $.get('http://localhost:3000/api/person/list', query, function(result, status){
 });
 ```
 
-##Creat
+##Create
 ```js
 
 var data = {
