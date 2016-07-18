@@ -1,6 +1,6 @@
 {
   "name": "crud-mongoose-simple",
-  "version": "1.9.3",
+  "version": "1.9.4",
   "description": "crud mongoose",
   "main": "index.js",
   "scripts": {
