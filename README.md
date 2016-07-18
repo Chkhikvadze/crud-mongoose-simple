@@ -21,18 +21,29 @@ $ npm install crud-mongoose-simple
 crudGenerator(options);
 ```
 
-## Example
+## Server setup
 
 ```js
+
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
 
-var personModel = require('./model/person');
+var personSchema = new Schema({
+  name: {
+    first: String,
+    last: String
+  },
+  age : Number,
+  accupation : String,
+  likes : []
+});
+
+var personModel = mongoose.model('Person', personSchema);
 var crudController = require('crud-mongoose-simple')({model:personModel});
 
-router.route('/person/')
-    .get(crudController.list) // get all items
-    .post(crudController.create); // Create new Item
+router.route('/person/list').get(crudController.list) // get all items
+router.route('/person/').post(crudController.create); // Create new Item
 
 router.route('/person/:id')
     .get(crudController.read) // Get Item by Id
@@ -40,25 +51,86 @@ router.route('/person/:id')
     .delete(crudController.delete); // Delete and Item by Id
 ```
 
-##Example call from client
+##Example Call From Client by jQuery:
+
+## List
 ```js
 
-Get List with query params
+Get List with query params. (working all mongoose query)
 
-var query = { where : {}, select : {},  skip: 10, limit: 20 };
+var query = { where : {},  skip: 10, limit: 20 };
 
 query.where= {
-    occupation: /host/,
+    'occupation': { "$regex": "host", "$options": "i" },
     'name.last': 'Ghost',
-    age: { $gt: 17, $lt: 66 },
-    likes: { $in: ['vaporizing', 'talking'] }
+    'age': { $gt: 17, $lt: 66 },
+    'likes': { $in: ['vaporizing', 'talking'] }
 };
 
-query.select('name occupation');
+query.select = 'name occupation';
 
-query.sort('-occupation');
+query.sort = '-occupation';
 
 $.get('http://localhost:3000/api/person/list', query, function(data, status){
     alert("Data: " + data + "\nStatus: " + status);
+});
+```
+
+
+##List Pagination
+```js
+
+var query = { where : {},  pageSize : 25, page : 1 };
+
+query.select = 'name occupation';
+
+query.sort = '-occupation';
+
+$.get('http://localhost:3000/api/person/list', query, function(data, status){
+    alert("Data: " + data + "\nStatus: " + status);
+});
+```
+
+##Read
+```js
+
+var id = '578d33f2d0920b0db20f8643';
+
+$.get('http://localhost:3000/api/person/' + id, function(data, status){
+    alert("Data: " + data + "\nStatus: " + status);
+});
+```
+
+##Edit
+```js
+
+var id = '578d33f2d0920b0db20f8643';
+
+var data = {
+    name : {first : "Giga",
+            last : "Chkhikvadze },
+    age : 50
+}
+
+$.ajax({
+    url: 'http://localhost:3000/api/person/' + id,
+    type: 'PUT',
+    success: function(result) {
+        // Do something with the result
+    }
+});
+```
+
+##Delete
+```js
+
+var id = '578d33f2d0920b0db20f8643';
+
+$.ajax({
+    url: 'http://localhost:3000/api/person/' + id,
+    type: 'DELETE',
+    success: function(result) {
+        // Do something with the result
+    }
 });
 ```

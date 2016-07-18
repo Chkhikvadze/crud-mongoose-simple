@@ -12,22 +12,34 @@ module.exports = function (options) {
         list: function (req, res) {
             var query = options.model.find();
 
-            if (req.params.skip && !isNaN(req.params.skip)) {
-                query.skip(req.params.skip);
+
+            if (req.query.page && !isNaN(req.query.page) ){
+                var pageSize = parseInt(req.query.pageSize || 20);
+                var page = parseInt(req.query.page || 0);
+                query.skip(page * pageSize);
+                query.limit(pageSize);
+            }else {
+                if (req.query.skip && !isNaN(req.query.skip)) {
+                    query.skip(req.query.skip);
+                }
+
+                if (req.query.limit && !isNaN(req.query.limit)) {
+                    query.limit(req.query.limit);
+                }
             }
 
-            if (req.params.limit && !isNaN(req.params.limit)) {
-                query.limit(req.params.limit);
-            }
-
-            if (req.params.limit && !isNaN(req.params.limit)) {
-                query.limit(req.params.limit);
-            }
-
-            if (req.query.where) {
+            if (req.query.where !== undefined) {
                 var where = JSON.parse(req.query.where);
 
                 query.where(where)
+            }
+
+            if (req.query.select !== undefined) {
+                query.select(req.query.select);
+            }
+
+            if (req.query.sort !== undefined) {
+                query.sort(req.query.sort);
             }
 
 

@@ -3,21 +3,37 @@
  */
 function getPersonList(){
 
-    var query = { where : {}, select : {},  skip: 10, limit: 20 };
+
+    var query = { where : {},  skip: 10, limit: 20 };
 
     query.where= {
-        occupation: /host/,
+        'occupation': { "$regex": "host", "$options": "i" },
         'name.last': 'Ghost',
-        age: { $gt: 17, $lt: 66 },
-        likes: { $in: ['vaporizing', 'talking'] }
+        'age': { $gt: 17, $lt: 66 },
+        'likes': { $in: ['vaporizing', 'talking'] }
     };
 
-    query.select('name occupation');
+    query.select = 'name occupation';
 
-    query.sort('-occupation');
+    query.sort = '-occupation';
 
-    //
     $.get('http://localhost:3000/api/person/list', query, function(data, status){
         alert("Data: " + data + "\nStatus: " + status);
     });
 }
+
+
+
+function getPersonListByPagination(){
+
+    var query = { where : {}, page : 2, pageSize : 25};
+
+    query.select = 'name occupation';
+
+    query.sort = '-occupation';
+
+    $.get('http://localhost:3000/api/person/list', query, function(data, status){
+        alert("Data: " + data + "\nStatus: " + status);
+    });
+}
+
