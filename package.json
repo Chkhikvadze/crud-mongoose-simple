@@ -20,6 +20,7 @@
   "author": "Giga Chkhikvadze (http://chkhikvadze.com/)",
   "license": "ISC",
   "devDependencies": {
+		"debug": "^2.2.0",
 		"chai": "3.5.0",
 		"eslint": "3.1.0",
 		"mocha": "2.5.3"
