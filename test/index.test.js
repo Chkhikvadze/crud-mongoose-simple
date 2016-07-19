@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-// mongoose.plugin(require('../index'));
+mongoose.plugin(require('../index'));
 
 var expect = require('chai').expect;
 
@@ -19,13 +19,13 @@ describe('tests for module types', function () {
 		});
 
 		var personModel = mongoose.model('Person', personSchema);
-		personSchema.plugin(require('../index'));
 
 		expect(personModel.list).to.exist;
-		// expect(personModel.read).to.exist;
-		// expect(personModel.create).to.exist;
-		// expect(personModel.update).to.exist;
-		// expect(personModel.delete).to.exist;
+		expect(personModel.read).to.exist;
+		expect(personModel.create).to.exist;
+		expect(personModel.update).to.exist;
+		expect(personModel.delete).to.exist;
+		expect(personModel.registerRouter).to.exist;
 	});
 
 });
