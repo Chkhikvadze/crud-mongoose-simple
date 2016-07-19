@@ -1,139 +1,26 @@
-/**
- * Created by giga on 7/10/12.
- */
-
 'use strict';
 
-var response = require('./response.js');
 var debug = require('debug')('crud-mongoose-debug');
 
-module.exports = function (options) {
-    return {
-        list: function (req, res) {
-            var query = options.model.find();
+module.exports = function (schema, options) {
 
+	var crud = require('./crud')(schema);
 
-            if (req.query.page && !isNaN(req.query.page) ){
-                var pageSize = parseInt(req.query.pageSize || 20);
-                var page = parseInt(req.query.page || 0);
-                query.skip(page * pageSize);
-                query.limit(pageSize);
-            }else {
-                if (req.query.skip && !isNaN(req.query.skip)) {
-                    query.skip(req.query.skip);
-                }
+	schema.static.list = function(){
+		return true;
+	};
+	schema.static.create = crud.create;
+	schema.static.read = crud.read;
+	schema.static.update = crud.update;
+	schema.static.delete = crud.delete;
+	schema.static.registerRouter = function (router) {
+		var name = schema.paths;
+		router.route('/' + name + '/list').get(crud.list); // get all items
+		router.route('/' + name + '/').post(crud.create); // Create new Item
 
-                if (req.query.limit && !isNaN(req.query.limit)) {
-                    query.limit(req.query.limit);
-                }
-            }
-
-            if (req.query.where !== undefined) {
-                var where = JSON.parse(req.query.where);
-
-                query.where(where)
-            }
-
-            if (req.query.select !== undefined) {
-                query.select(req.query.select);
-            }
-
-            if (req.query.sort !== undefined) {
-                query.sort(req.query.sort);
-            }
-
-
-            query.exec(function (err, items) {
-                if (err) {
-                    debug(err);
-                    return res.status(500).json(response.error());
-                }
-
-                return res.status(200).json(response.success(items));
-            });
-        },
-
-        create: function (req, res) {
-            var item = new options.model(req.body);
-            // assign files
-            for (var key in req.files) {
-                item[key] = req.files[key].name; // temp
-            }
-            item.save(function (err, item) {
-                if (err) {
-                    debug(err);
-                    return res.status(400).json(response.bad_request(err.errors));
-                }
-
-                return res.status(200).json(response.success(item));
-            });
-        },
-
-        read: function (req, res) {
-            options.model.findById(req.params.id, function (err, item) {
-                if (err) {
-                    debug(err);
-                    return res.status(500).json(response.error());
-                }
-
-                if (!item) {
-                    return res.status(404).json(response.not_found());
-                }
-
-                return res.status(200).json(response.success(item));
-            });
-        },
-
-        update: function (req, res) {
-            options.model.findById(req.params.id, function (err, item) {
-                if (err) {
-                    debug(err);
-                    return res.status(500).json(response.error());
-                }
-
-                if (!item) {
-                    return res.status(404).json(response.not_found());
-                }
-
-                item.set(req.body);
-
-                // assign files
-                for (var key in req.files) {
-                    item[key] = req.files[key].name; // temp
-                }
-                item.save(function (err, item) {
-                    if (err) {
-                        debug(err);
-                        // TODO strip unnecassary fields from error
-                        return res.status(400).json(response.bad_request(err.errors));
-                    }
-
-                    return res.status(200).json(response.success(item));
-                });
-            });
-        },
-
-        delete: function (req, res) {
-            options.Model.findById(req.params.id, function (err, item) {
-                if (err) {
-                    debug(err);
-                    return res.status(500).json(response.error());
-                }
-
-                if (!item) {
-                    return res.status(404).json(response.not_found());
-                }
-
-                item.remove(function (err) {
-                    if (err) {
-                        debug(err);
-                        // TODO strip unnecassary fields
-                        return res.status(400).json(response.bad_request(err.errors));
-                    }
-
-                    return res.status(200).json(response.success());
-                });
-            });
-        }
-    };
-};
+		router.route('/' + name +'/:id')
+			.get(crud.read) // Get Item by Id
+			.put(crud.update) // Update an Item with a given Id
+			.delete(crud.delete); // Delete and Item by Id
+	}
+}

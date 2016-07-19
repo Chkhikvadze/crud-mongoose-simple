@@ -1,5 +1,8 @@
 crud-mongoose-simple
-============
+====================
+
+[![Build Status](https://travis-ci.org/Chkhikvadze/crud-mongoose-simple.svg?branch=master)](https://github.com/Chkhikvadze/crud-mongoose-simple)
+
 
 Simple List, Create, Read, Update and Delete requests for a given Mongoose model
 
@@ -21,13 +24,14 @@ $ npm install crud-mongoose-simple
 crudGenerator(options);
 ```
 
-## Server setup
+## Server setup with manual route
 
 ```js
 
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+mongoose.plugin(require('crud-mongoose-simple'));
 
 var personSchema = new Schema({
   name: {
@@ -40,10 +44,9 @@ var personSchema = new Schema({
 });
 
 var personModel = mongoose.model('Person', personSchema);
-var crudController = require('crud-mongoose-simple')({model:personModel});
 
-router.route('/person/list').get(crudController.list) // get all items
-router.route('/person/').post(crudController.create); // Create new Item
+router.route('/person/list').get(personModel.list) // Get all items by filter
+router.route('/person/').post(personModel.create); // Create new Item
 
 router.route('/person/:id')
     .get(crudController.read) // Get Item by Id
@@ -71,8 +74,8 @@ query.select = 'name occupation';
 
 query.sort = '-occupation';
 
-$.get('http://localhost:3000/api/person/list', query, function(data, status){
-    alert("Data: " + data + "\nStatus: " + status);
+$.get('http://localhost:3000/api/person/list', query, function(result, status){
+    console.log(result);
 });
 ```
 
@@ -147,4 +150,55 @@ $.ajax({
         console.log(result);
     }
 });
+```
+
+## Server setup with auto route
+
+```js
+
+var mongoose = require('mongoose');
+mongoose.plugin(require('crud-mongoose-simple'));
+
+var personSchema = new Schema({
+  name: String
+});
+
+var personModel = mongoose.model('Person', personSchema);
+
+var express = require('express');
+var router = express.Router();
+personModel.registerRouter(router);
+
+It get routes:
+GET - http://localhost:3000/{modelName}/list  - Get all items by filter  (e.g. http://localhost:3000/person/list)
+POST - http://localhost:3000/{modelName}/ - Create new Item
+GET - http://localhost:3000/{modelName}/:id - Get Item by Id
+PUT - http://localhost:3000/{modelName}/:id - Update an Item with a given Id
+DELETE - http://localhost:3000/{schemaName}/:id - Delete and Item by Id
+
+```
+
+## Server Custom Route
+
+```js
+
+var express = require('express');
+var router = express.Router();
+var mongoose = require('mongoose');
+mongoose.plugin(require('crud-mongoose-simple'));
+
+var personSchema = new Schema({
+  name: String
+});
+
+var personModel = mongoose.model('Person', personSchema);
+
+router.route('/person/listbyuser').get(function(req, res){
+	var userId = '578d33f2d0920b0db20f8643';
+	req.query.pageSize = 25;
+	req.query.where.userId = userId;
+	req.query.sort = '-name';
+	return personModel.list(req, res)
+})
+
 ```

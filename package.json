@@ -1,10 +1,11 @@
 {
   "name": "crud-mongoose-simple",
-  "version": "1.9.4",
+  "version": "1.9.5",
   "description": "crud mongoose",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+		"test": "mocha test/*.test.js test/**/*.test.js",
+		"lint": "eslint . --quiet"
   },
   "repository": {
     "type": "git",
@@ -12,14 +13,20 @@
   },
   "keywords": [
     "crud",
-    "mongoose"
+    "mongoose",
+		"plugin",
+		"route"
   ],
   "author": "Giga Chkhikvadze (http://chkhikvadze.com/)",
   "license": "ISC",
   "devDependencies": {
-    "debug": "^2.2.0"
+		"chai": "3.5.0",
+		"eslint": "3.1.0",
+		"mocha": "2.5.3"
   },
   "dependencies": {
-    "mongoose": "^4.5.5"
+		"faker": "3.1.0",
+		"lodash": "4.13.1",
+		"mongoose": "^4.5.5"
   }
 }
