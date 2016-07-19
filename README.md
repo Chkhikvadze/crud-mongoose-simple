@@ -12,18 +12,6 @@ Simple List, Create, Read, Update and Delete requests for a given Mongoose model
 $ npm install crud-mongoose-simple
 ```
 
-## Usage
-
-```js
-/**
- * @param {Object} options
- * @param {Object} options.model
- *		  - A Mongoose model of the resource you want
- */
-
-crudGenerator(options);
-```
-
 ## Server setup with manual route
 
 ```js
