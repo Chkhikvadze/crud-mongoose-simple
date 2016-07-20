@@ -12,34 +12,34 @@ Simple List, Create, Read, Update and Delete requests for a given Mongoose model
 $ npm install crud-mongoose-simple
 ```
 
-## Server setup with manual route
+## Server Setup With Manual Route
 
 ```js
 
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-mongoose.plugin(require('crud-mongoose-simple'));
 
-var personSchema = new Schema({
-  name: {
-    first: String,
-    last: String
-  },
-  age : Number,
-  accupation : String,
-  likes : []
+var personSchema = new mongoose.Schema({
+	name: {
+		first: String,
+		last: String
+	},
+	age : Number,
+	accupation : String,
+	likes : []
 });
 
 var personModel = mongoose.model('Person', personSchema);
 
-router.route('/person/list').get(personModel.list) // Get all items by filter
-router.route('/person/').post(personModel.create); // Create new Item
+var crud = require('crud-mongoose-simple')({model:personModel});
+router.route('/person/list').get(crud.list) // Get all items by filter
+router.route('/person/').post(crud.create); // Create new Item
 
 router.route('/person/:id')
-    .get(crudController.read) // Get Item by Id
-    .put(crudController.update) // Update an Item with a given Id
-    .delete(crudController.delete); // Delete and Item by Id
+	.get(crud.read) // Get Item by Id
+	.put(crud.update) // Update an Item with a given Id
+	.delete(crud.delete); // Delete and Item by Id
 ```
 
 ##Example Call From Client Side By jQuery:
@@ -140,29 +140,59 @@ $.ajax({
 });
 ```
 
-## Server setup with auto route
+## Server Setup With Auto Route
+
+```js
+
+var express = require('express');
+var router = express.Router();
+
+var mongoose = require('mongoose');
+var personSchema = new mongoose.Schema({
+	name: String
+});
+
+var personModel = mongoose.model('Person', personSchema);
+
+var crud = require('crud-mongoose-simple')({model:personModel})
+crud.registerRouter(router, '/api/v1/');
+
+/**
+ * It get routes:
+ * GET - http://localhost:3000/api/v1/{modelName}/list  - Get all items by filter
+ * POST - http://localhost:3000/api/v1/{modelName}/ - Create new Item
+ * PUT - http://localhost:3000/api/v1/{modelName}/:id - Update an Item with a given Id
+ * DELETE - http://localhost:3000/api/v1/{schemaName}/:id - Delete and Item by Id
+ */
+
+```
+
+
+## Server Setup With Auto Route By Mongoose Plugin
 
 ```js
 
 var mongoose = require('mongoose');
-mongoose.plugin(require('crud-mongoose-simple'));
+var mongoosePlugin = require('crud-mongoose-simple')().mongoosePlugin;
+mongoose.plugin(mongoosePlugin);
 
-var personSchema = new Schema({
-  name: String
+var personSchema = new mongoose.Schema({
+	name: String
 });
 
 var personModel = mongoose.model('Person', personSchema);
 
 var express = require('express');
 var router = express.Router();
-personModel.registerRouter(router);
+personModel.registerRouter(router, '/api/v1/');
 
-It get routes:
-GET - http://localhost:3000/{modelName}/list  - Get all items by filter  (e.g. http://localhost:3000/person/list)
-POST - http://localhost:3000/{modelName}/ - Create new Item
-GET - http://localhost:3000/{modelName}/:id - Get Item by Id
-PUT - http://localhost:3000/{modelName}/:id - Update an Item with a given Id
-DELETE - http://localhost:3000/{schemaName}/:id - Delete and Item by Id
+/**
+ * It get routes:
+ * GET - http://localhost:3000/api/v1/{modelName}/list  - Get all items by filter
+ * POST - http://localhost:3000/api/v1/{modelName}/ - Create new Item
+ * PUT - http://localhost:3000/api/v1/{modelName}/:id - Update an Item with a given Id
+ * DELETE - http://localhost:3000/api/v1/{schemaName}/:id - Delete and Item by Id
+ */
 
 ```
 
@@ -170,10 +200,9 @@ DELETE - http://localhost:3000/{schemaName}/:id - Delete and Item by Id
 
 ```js
 
-var express = require('express');
-var router = express.Router();
 var mongoose = require('mongoose');
-mongoose.plugin(require('crud-mongoose-simple'));
+var mongoosePlugin = require('crud-mongoose-simple')().mongoosePlugin;
+mongoose.plugin(mongoosePlugin);
 
 var personSchema = new Schema({
   name: String
