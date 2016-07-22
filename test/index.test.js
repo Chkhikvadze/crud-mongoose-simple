@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+var crud = require('../index');
+mongoose.plugin(crud)
 
 var expect = require('chai').expect;
 
@@ -18,28 +20,20 @@ describe('tests for module types', function () {
 		});
 
 		var personModel = mongoose.model('Person', personSchema);
-		var crud =require('../index')({model:personModel});
 
-		expect(crud.list).to.exist;
-		expect(crud.list).to.be.a('Function');
+		expect(personModel.list).to.exist;
+		expect(personModel.list).to.be.a('Function');
 
-		expect(crud.read).to.exist;
-		expect(crud.read).to.be.a('Function');
+		expect(personModel.read).to.exist;
+		expect(personModel.read).to.be.a('Function');
 
-		expect(crud.create).to.exist;
-		expect(crud.create).to.be.a('Function');
+		expect(personModel.create).to.exist;
+		expect(personModel.create).to.be.a('Function');
 
-		expect(crud.update).to.exist;
-		expect(crud.update).to.be.a('Function');
+		expect(personModel.update).to.exist;
+		expect(personModel.update).to.be.a('Function');
 
-		expect(crud.delete).to.exist;
-		expect(crud.delete).to.be.a('Function');
-
-		expect(crud.registerRouter).to.exist;
-		expect(crud.registerRouter).to.be.a('Function');
-
-		expect(crud.mongoosePlugin).to.exist;
-		expect(crud.mongoosePlugin).to.be.a('Function');
+		expect(personModel.delete).to.exist;
+		expect(personModel.delete).to.be.a('Function');
 	});
-
 });
