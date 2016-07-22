@@ -195,5 +195,5 @@ router.route('/person/listbyuser').get(function(req, res, next){
 	req.query.sort = '-name';
 
 	next();
-}, personModel.list)
+}, personModel.list())
 ```

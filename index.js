@@ -7,19 +7,19 @@ module.exports = function mongoosePlugin(schema, options) {
 	};
 
 	schema.statics.create = function() {
-		require('./lib/crud')(this).create;
+		return require('./lib/crud')(this).create;
 	};
 
-	schema.statics.read = function(req, res) {
-		require('./lib/crud')(this).read;
+	schema.statics.read = function() {
+		return require('./lib/crud')(this).read;
 	};
 
 	schema.statics.update = function() {
-		require('./lib/crud')(this).update;
+		return require('./lib/crud')(this).update;
 	};
 
-	schema.statics.delete = function(req, res) {
-		require('./lib/crud')(this).delete;
+	schema.statics.delete = function() {
+		return require('./lib/crud')(this).delete;
 	};
 
 	schema.statics.registerRouter = function(router, url) {
