@@ -38,6 +38,38 @@ it("should create request", function (done) {
 	}).catch(done);
 });
 
+it("should create with count request", function (done) {
+
+	return new Promise(function(resolve, reject) {
+		var req = httpMock.createRequest({
+			body: {
+				name : 'Kutaisi',
+				state : 'Imereti',
+				country : 'Georgia',
+				count : 10
+			}
+		});
+		var res = httpMock.createResponse();
+		res.on('end', function(){
+			return resolve(res);
+		}).on('error', function(err) {
+			return reject(err);
+		});
+
+		cityModel.create()(req, res);
+
+	}).then( function(res) {
+		assert.equal(200, res.statusCode);
+		assert.isTrue(res._isJSON());
+
+		var result = JSON.parse(res._getData());
+		assert.equal(result.data.name, "Kutaisi");
+		assert.equal(result.data.state, "Imereti");
+		assert.equal(result.data.country, "Georgia");
+		done();
+	}).catch(done);
+});
+
 
 it("should create bed request", function (done) {
 
@@ -120,11 +152,11 @@ it("should list request", function (done) {
 	}).catch(done);
 });
 
-it("should list skip limit request", function (done) {
+it("should list skip request", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
-			query : {limit :0, skip : 1}
+			query : {skip : 2}
 		});
 		var res = httpMock.createResponse();
 		res.on('end', function(){
@@ -141,6 +173,119 @@ it("should list skip limit request", function (done) {
 		done();
 		var result = JSON.parse(res._getData());
 		assert.equal(result.data.length, 0, 'Data length equal 0');
+
+	}).catch(done);
+});
+
+it("should list skip request", function (done) {
+
+	return new Promise(function(resolve, reject) {
+		var req = httpMock.createRequest({
+			query : {limit :1}
+		});
+		var res = httpMock.createResponse();
+		res.on('end', function(){
+			return resolve(res);
+		}).on('error', function(err) {
+			return reject(err);
+		});
+
+		cityModel.list()(req, res);
+
+	}).then( function(res) {
+		assert.equal(200, res.statusCode);
+		assert.isTrue(res._isJSON());
+		done();
+		var result = JSON.parse(res._getData());
+		assert.equal(result.data.length, 1, 'Data length equal 1');
+
+	}).catch(done);
+});
+
+it("should list filter, select, sortrequest", function (done) {
+
+	return new Promise(function(resolve, reject) {
+		var req = httpMock.createRequest({
+			query : {
+				where : '{ "name" : "Tbilisi"}'
+			}
+		});
+		var res = httpMock.createResponse();
+		res.on('end', function(){
+			return resolve(res);
+		}).on('error', function(err) {
+			return reject(err);
+		});
+
+		cityModel.list()(req, res);
+
+	}).then( function(res) {
+		assert.equal(200, res.statusCode);
+		assert.isTrue(res._isJSON());
+		done();
+		var result = JSON.parse(res._getData());
+		assert.equal(result.data.length, 1, 'Data length equal 1');
+
+	}).catch(done);
+});
+
+it("should list select, sort request", function (done) {
+
+	return new Promise(function(resolve, reject) {
+		var req = httpMock.createRequest({
+			query : {
+				select : "name count",
+				sort : '-count'
+			}
+		});
+		var res = httpMock.createResponse();
+		res.on('end', function(){
+			return resolve(res);
+		}).on('error', function(err) {
+			return reject(err);
+		});
+
+		cityModel.list()(req, res);
+
+	}).then( function(res) {
+		assert.equal(200, res.statusCode);
+		assert.isTrue(res._isJSON());
+		done();
+		var result = JSON.parse(res._getData());
+		assert.equal(result.data.length, 2, 'Data length equal 0');
+		assert.equal(result.data[0].count, 10, 'Data count equal 10');
+		assert.notProperty(result.data[0], 'state');
+		assert.notProperty(result.data[0], 'country');
+		assert.property(result.data[0], 'name');
+		assert.property(result.data[0], 'count');
+
+	}).catch(done);
+});
+
+it("should list pagination request", function (done) {
+
+	return new Promise(function(resolve, reject) {
+		var req = httpMock.createRequest({
+			query : {
+				pageSize : 1,
+				page : 1
+			}
+		});
+		var res = httpMock.createResponse();
+		res.on('end', function(){
+			return resolve(res);
+		}).on('error', function(err) {
+			return reject(err);
+		});
+
+		cityModel.list()(req, res);
+
+	}).then( function(res) {
+		assert.equal(200, res.statusCode);
+		assert.isTrue(res._isJSON());
+		done();
+		var result = JSON.parse(res._getData());
+		assert.equal(result.data.length, 1, 'Data length equal 1');
 
 	}).catch(done);
 });
