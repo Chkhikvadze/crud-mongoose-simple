@@ -26,7 +26,7 @@ it("should create request", function (done) {
 		cityModel.create()(req, res);
 
 	}).then( function(res) {
-		assert.equal(200, res.statusCode);
+		assert.equal(201, res.statusCode);
 		assert.isTrue(res._isJSON());
 
 		var result = JSON.parse(res._getData());
@@ -59,7 +59,7 @@ it("should create with count request", function (done) {
 		cityModel.create()(req, res);
 
 	}).then( function(res) {
-		assert.equal(200, res.statusCode);
+		assert.equal(201, res.statusCode);
 		assert.isTrue(res._isJSON());
 
 		var result = JSON.parse(res._getData());
