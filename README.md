@@ -4,7 +4,8 @@ crud-mongoose-simple
 [![Build Status](https://travis-ci.org/Chkhikvadze/crud-mongoose-simple.svg?branch=master)](https://github.com/Chkhikvadze/crud-mongoose-simple)
 
 
-Simple List, Create, Read, Update and Delete requests for a given Mongoose model
+Simple List, Create, Read, Update and Delete requests for a given Mongoose model. 
+Create Express Route easily.
 
 ## Install
 
