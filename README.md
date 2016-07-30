@@ -99,7 +99,8 @@ router.route('/person/listbyuser').get(function(req, res, next){
 		},
 		pageSize : 25,
 		sort : '-firstName',
-		select : 'firstName lastName'
+		select : 'firstName lastName',
+		populate : ['user']
 	};
 	req.apiQuery = query;
 	next();
