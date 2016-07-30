@@ -26,8 +26,8 @@ var countrySchema = new mongoose.Schema({
 }, {
 	query : {
 		// where : { price : 90 },
-		select : 'location price businessName dealDescription',
-		pageSize : 20
+		select : 'name',
+		pageSize : 2
 	}
 });
 
@@ -38,5 +38,5 @@ var countryModel = mongoose.model('Country', countrySchema);
 module.exports = {
 	person : personModel,
 	city : cityModel,
-	countryModel : countryModel
+	country : countryModel
 }
