@@ -4,7 +4,7 @@ crud-mongoose-simple
 [![Build Status](https://travis-ci.org/Chkhikvadze/crud-mongoose-simple.svg?branch=master)](https://github.com/Chkhikvadze/crud-mongoose-simple)
 
 
-Simple List, Create, Read, Update and Delete requests for a given Mongoose model. 
+Simple List, Create, Read, Update and Delete requests for a given Mongoose model.
 Create Express Route easily.
 
 ## Install
@@ -45,6 +45,95 @@ router.route('/person/:id')
 	.put(personModel.update()) // Update an Item with a given Id
 	.delete(personModel.delete()); // Delete and Item by Id
 ```
+
+## Server Setup With Auto Route
+
+```js
+
+var express = require('express');
+var router = express.Router();
+
+var mongoose = require('mongoose');
+var crud = require('crud-mongoose-simple');
+mongoose.plugin(crud);
+
+var personSchema = new mongoose.Schema({
+	name: String
+});
+
+var personModel = mongoose.model('Person', personSchema);
+
+personModel.registerRouter(router, '/api/v1/');
+
+/**
+ * It get routes:
+ * GET - http://localhost:3000/api/v1/{modelName}/list  - Get all items by filter
+ * POST - http://localhost:3000/api/v1/{modelName}/ - Create new Item
+ * PUT - http://localhost:3000/api/v1/{modelName}/:id - Update an Item with a given Id
+ * DELETE - http://localhost:3000/api/v1/{schemaName}/:id - Delete and Item by Id
+ */
+```
+
+## Server Custom Route with ApiQuery
+
+```js
+var express = require('express');
+var router = express.Router();
+
+
+var mongoose = require('mongoose');
+var crud = require('crud-mongoose-simple');
+mongoose.plugin(crud);
+
+var personSchema = new Schema({
+	fristName: String,
+	lastName: String
+});
+
+var personModel = mongoose.model('Person', personSchema);
+
+router.route('/person/listbyuser').get(function(req, res, next){
+	var query = {
+		where : {
+			userId : '578d33f2d0920b0db20f8643'
+		},
+		pageSize : 25,
+		sort : '-firstName',
+		select : 'firstName lastName'
+	};
+	req.apiQuery = query;
+	next();
+}, personModel.list())
+```
+
+## Server Schema Query
+
+```js
+var express = require('express');
+var router = express.Router();
+
+
+var mongoose = require('mongoose');
+var crud = require('crud-mongoose-simple');
+mongoose.plugin(crud);
+
+var personSchema = new Schema({
+	fristName: String,
+	lastName: String
+},{
+	query : {
+		pageSize : 25,
+        sort : '-firstName',
+        select : 'firstName lastName'
+	}
+});
+
+var personModel = mongoose.model('Person', personSchema);
+
+ //items filter by Schema Qeury
+router.route('/person/list').get(personModel.list())
+```
+
 
 ##Example Call From Client Side By jQuery:
 
@@ -144,57 +233,3 @@ $.ajax({
 });
 ```
 
-## Server Setup With Auto Route
-
-```js
-
-var express = require('express');
-var router = express.Router();
-
-var mongoose = require('mongoose');
-var crud = require('crud-mongoose-simple');
-mongoose.plugin(crud);
-
-var personSchema = new mongoose.Schema({
-	name: String
-});
-
-var personModel = mongoose.model('Person', personSchema);
-
-personModel.registerRouter(router, '/api/v1/');
-
-/**
- * It get routes:
- * GET - http://localhost:3000/api/v1/{modelName}/list  - Get all items by filter
- * POST - http://localhost:3000/api/v1/{modelName}/ - Create new Item
- * PUT - http://localhost:3000/api/v1/{modelName}/:id - Update an Item with a given Id
- * DELETE - http://localhost:3000/api/v1/{schemaName}/:id - Delete and Item by Id
- */
-```
-
-## Server Custom Route
-
-```js
-var express = require('express');
-var router = express.Router();
-
-
-var mongoose = require('mongoose');
-var crud = require('crud-mongoose-simple');
-mongoose.plugin(crud);
-
-var personSchema = new Schema({
-	name: String
-});
-
-var personModel = mongoose.model('Person', personSchema);
-
-router.route('/person/listbyuser').get(function(req, res, next){
-	var userId = '578d33f2d0920b0db20f8643';
-	req.query.pageSize = 25;
-	req.query.where.userId = userId;
-	req.query.sort = '-name';
-
-	next();
-}, personModel.list())
-```

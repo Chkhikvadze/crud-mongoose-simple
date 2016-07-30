@@ -12,7 +12,6 @@ var personSchema = new mongoose.Schema({
 	likes : []
 });
 
-
 var citySchema = new mongoose.Schema({
 	name : String,
 	state : String,
@@ -20,10 +19,24 @@ var citySchema = new mongoose.Schema({
 	count : Number
 });
 
+var countrySchema = new mongoose.Schema({
+	name : String,
+	cityCount : Number,
+	type : String
+}, {
+	query : {
+		// where : { price : 90 },
+		select : 'location price businessName dealDescription',
+		pageSize : 20
+	}
+});
+
 var personModel = mongoose.model('Person', personSchema);
 var cityModel = mongoose.model('City', citySchema);
+var countryModel = mongoose.model('Country', countrySchema);
 
 module.exports = {
 	person : personModel,
-	city : cityModel
+	city : cityModel,
+	countryModel : countryModel
 }
