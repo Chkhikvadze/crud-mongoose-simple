@@ -34,7 +34,7 @@ var personSchema = new mongoose.Schema({
 	accupation : String,
 	likes : []
 });
-
+ 
 var personModel = mongoose.model('Person', personSchema);
 
 router.route('/person/list').get(personModel.list()) // Get all items by filter
