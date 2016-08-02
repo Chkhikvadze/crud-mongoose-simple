@@ -23,7 +23,7 @@ it("should create request", function (done) {
 			return reject(err);
 		});
 
-		cityModel.create()(req, res);
+		cityModel.httpPost()(req, res);
 
 	}).then( function(res) {
 		assert.equal(201, res.statusCode);
@@ -56,7 +56,7 @@ it("should create with count request", function (done) {
 			return reject(err);
 		});
 
-		cityModel.create()(req, res);
+		cityModel.httpPost()(req, res);
 
 	}).then( function(res) {
 		assert.equal(201, res.statusCode);
@@ -87,7 +87,7 @@ it("should create bed request", function (done) {
 			return reject(err);
 		});
 
-		cityModel.create()(req, res);
+		cityModel.httpPost()(req, res);
 
 	}).then( function(res) {
 		assert.equal(400, res.statusCode);
@@ -99,7 +99,7 @@ it("should create bed request", function (done) {
 
 
 
-it("should read request", function (done) {
+it("should httpGet request", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -114,7 +114,7 @@ it("should read request", function (done) {
 			return reject(err);
 		});
 
-		cityModel.read()(req, res);
+		cityModel.httpGet()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);
@@ -128,7 +128,7 @@ it("should read request", function (done) {
 	}).catch(done);
 });
 
-it("should list request", function (done) {
+it("should httpGet request", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -140,7 +140,7 @@ it("should list request", function (done) {
 			return reject(err);
 		});
 
-		cityModel.list()(req, res);
+		cityModel.httpGet()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);
@@ -152,7 +152,7 @@ it("should list request", function (done) {
 	}).catch(done);
 });
 
-it("should list skip request", function (done) {
+it("should httpGet skip request", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -165,7 +165,7 @@ it("should list skip request", function (done) {
 			return reject(err);
 		});
 
-		cityModel.list()(req, res);
+		cityModel.httpGet()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);
@@ -177,7 +177,7 @@ it("should list skip request", function (done) {
 	}).catch(done);
 });
 
-it("should list skip request", function (done) {
+it("should httpGet skip request", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -190,7 +190,7 @@ it("should list skip request", function (done) {
 			return reject(err);
 		});
 
-		cityModel.list()(req, res);
+		cityModel.httpGet()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);
@@ -202,7 +202,7 @@ it("should list skip request", function (done) {
 	}).catch(done);
 });
 
-it("should list filter, select, sortrequest", function (done) {
+it("should httpGet filter, select, sortrequest", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -217,7 +217,7 @@ it("should list filter, select, sortrequest", function (done) {
 			return reject(err);
 		});
 
-		cityModel.list()(req, res);
+		cityModel.httpGet()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);
@@ -229,7 +229,7 @@ it("should list filter, select, sortrequest", function (done) {
 	}).catch(done);
 });
 
-it("should list select, sort request", function (done) {
+it("should httpGet select, sort request", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -245,7 +245,7 @@ it("should list select, sort request", function (done) {
 			return reject(err);
 		});
 
-		cityModel.list()(req, res);
+		cityModel.httpGet()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);
@@ -262,7 +262,7 @@ it("should list select, sort request", function (done) {
 	}).catch(done);
 });
 
-it("should list pagination request", function (done) {
+it("should httpGet pagination request", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -278,7 +278,7 @@ it("should list pagination request", function (done) {
 			return reject(err);
 		});
 
-		cityModel.list()(req, res);
+		cityModel.httpGet()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);
@@ -290,7 +290,7 @@ it("should list pagination request", function (done) {
 	}).catch(done);
 });
 
-it("should update request", function (done) {
+it("should httpPut request", function (done) {
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
 			params: {
@@ -309,7 +309,7 @@ it("should update request", function (done) {
 			return reject(err);
 		});
 
-		cityModel.update()(req, res);
+		cityModel.httpPut()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);
@@ -323,7 +323,7 @@ it("should update request", function (done) {
 	}).catch(done);
 });
 
-it("should delete request", function (done) {
+it("should httpDelete request", function (done) {
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
 			params: {
@@ -337,7 +337,7 @@ it("should delete request", function (done) {
 			return reject(err);
 		});
 
-		cityModel.delete()(req, res);
+		cityModel.httpDelete()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);

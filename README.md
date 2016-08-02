@@ -13,6 +13,15 @@ Create Express Route easily.
 $ npm install crud-mongoose-simple
 ```
 
+### Plugin Static Functions
+* Model.httpGet(req, res);
+* Model.httpPost(req, res);
+* Model.httpPut(req, res);
+* Model.httpDelete(req, res);
+* Model.countItems(req, res);
+* Model.totalPages(req, res);
+* Model.registerRouter(req, res);
+
 ## Server Setup With Manual Route
 
 ```js
@@ -34,16 +43,16 @@ var personSchema = new mongoose.Schema({
 	accupation : String,
 	likes : []
 });
- 
+
 var personModel = mongoose.model('Person', personSchema);
 
-router.route('/person/list').get(personModel.list()) // Get all items by filter
-router.route('/person/').post(personModel.create()); // Create new Item
+router.route('/person/list').get(personModel.httpGet()) // Get all items by filter
+router.route('/person/').post(personModel.httpPost()); // Create new Item
 
 router.route('/person/:id')
-	.get(personModel.read()) // Get Item by Id
-	.put(personModel.update()) // Update an Item with a given Id
-	.delete(personModel.delete()); // Delete and Item by Id
+	.get(personModel.httpGet()) // Get Item by Id
+	.put(personModel.httpPut()) // Update an Item with a given Id
+	.delete(personModel.httpDelete()); // Delete and Item by Id
 ```
 
 ## Server Setup With Auto Route
@@ -104,7 +113,7 @@ router.route('/person/listbyuser').get(function(req, res, next){
 	};
 	req.apiQuery = query;
 	next();
-}, personModel.list())
+}, personModel.httpGet())
 ```
 
 ## Server Schema Query
@@ -132,7 +141,7 @@ var personSchema = new Schema({
 var personModel = mongoose.model('Person', personSchema);
 
  //items filter by Schema Qeury
-router.route('/person/list').get(personModel.list())
+router.route('/person/list').get(personModel.httpGet())
 ```
 
 

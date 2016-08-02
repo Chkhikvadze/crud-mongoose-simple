@@ -2,35 +2,39 @@
 
 module.exports = function mongoosePlugin(schema, options) {
 
-	schema.statics.list = function() {
-		return require('./lib/crud')(this).list;
+	schema.statics.httpGet = function() {
+		return require('./lib/crud')(this).httpGet;
 	};
 
-	schema.statics.create = function() {
-		return require('./lib/crud')(this).create;
+	schema.statics.httpPost = function() {
+		return require('./lib/crud')(this).httpPost;
 	};
 
-	schema.statics.read = function() {
-		return require('./lib/crud')(this).read;
+	schema.statics.httpPut = function() {
+		return require('./lib/crud')(this).httpPut;
 	};
 
-	schema.statics.update = function() {
-		return require('./lib/crud')(this).update;
+	schema.statics.httpDelete = function() {
+		return require('./lib/crud')(this).httpDelete;
 	};
 
-	schema.statics.delete = function() {
-		return require('./lib/crud')(this).delete;
+	schema.statics.countItems = function() {
+		return require('./lib/crud')(this).count;
+	};
+
+	schema.statics.totalPages = function() {
+		return require('./lib/crud')(this).totalPage;
 	};
 
 	schema.statics.registerRouter = function(router, url) {
 		var crud = require('./lib/crud')(this);
 		var modelName = this.modelName;
-		router.route(url + modelName + '/list').get(crud.list); // get all items
-		router.route(url + modelName + '/').post(crud.create); // Create new Item
+		router.route(url + modelName + '/list').get(crud.httpGet); // get all items
+		router.route(url + modelName + '/').post(crud.httpPost); // Create new Item
 
 		router.route(url + modelName +'/:id')
-			.get(crud.read) // Get Item by Id
-			.put(crud.update) // Update an Item with a given Id
-			.delete(crud.delete); // Delete and Item by Id
+			.get(crud.httpGet) // Get Item by Id
+			.put(crud.httpPut) // Update an Item with a given Id
+			.delete(crud.httpDelete); // Delete and Item by Id
 	};
 }

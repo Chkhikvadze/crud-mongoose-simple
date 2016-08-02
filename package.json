@@ -15,7 +15,12 @@
     "crud",
     "mongoose",
     "plugin",
-    "route"
+    "route",
+		"express",
+		"delete",
+		"create",
+		"list",
+		"update"
   ],
   "author": "Giga Chkhikvadze (http://chkhikvadze.com/)",
   "license": "ISC",

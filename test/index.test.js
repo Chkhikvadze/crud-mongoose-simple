@@ -8,35 +8,17 @@ describe('tests for module types', function () {
 
 
 
-		expect(personModel.list).to.exist;
-		expect(personModel.list).to.be.a('Function');
+		expect(personModel.httpGet).to.exist;
+		expect(personModel.httpGet).to.be.a('Function');
 
-		expect(personModel.read).to.exist;
-		expect(personModel.read).to.be.a('Function');
+		expect(personModel.httpPost).to.exist;
+		expect(personModel.httpPost).to.be.a('Function');
 
-		expect(personModel.create).to.exist;
-		expect(personModel.create).to.be.a('Function');
+		expect(personModel.httpPut).to.exist;
+		expect(personModel.httpPut).to.be.a('Function');
 
-		expect(personModel.update).to.exist;
-		expect(personModel.update).to.be.a('Function');
+		expect(personModel.httpDelete).to.exist;
+		expect(personModel.httpDelete).to.be.a('Function');
 
-		expect(personModel.delete).to.exist;
-		expect(personModel.delete).to.be.a('Function');
-
-
-		expect(personModel.list()).to.exist;
-		expect(personModel.list()).to.be.a('Function');
-
-		expect(personModel.read()).to.exist;
-		expect(personModel.read()).to.be.a('Function');
-
-		expect(personModel.create()).to.exist;
-		expect(personModel.create()).to.be.a('Function');
-
-		expect(personModel.update()).to.exist;
-		expect(personModel.update()).to.be.a('Function');
-
-		expect(personModel.delete()).to.exist;
-		expect(personModel.delete()).to.be.a('Function');
 	});
 });

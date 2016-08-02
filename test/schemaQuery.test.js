@@ -6,7 +6,7 @@ var httpMock = require('./http');
 
 var country_id;
 
-it("SchemaQuery create request", function (done) {
+it("SchemaQuery httpPost request", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -23,7 +23,7 @@ it("SchemaQuery create request", function (done) {
 			return reject(err);
 		});
 
-		countryModel.create()(req, res);
+		countryModel.httpPost()(req, res);
 
 	}).then( function(res) {
 		assert.equal(201, res.statusCode);
@@ -38,7 +38,7 @@ it("SchemaQuery create request", function (done) {
 	}).catch(done);
 });
 
-it("SchemaQuery create reqest 2", function (done) {
+it("SchemaQuery httpPost reqest 2", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -55,7 +55,7 @@ it("SchemaQuery create reqest 2", function (done) {
 			return reject(err);
 		});
 
-		countryModel.create()(req, res);
+		countryModel.httpPost()(req, res);
 
 	}).then( function(res) {
 		assert.equal(201, res.statusCode);
@@ -69,7 +69,7 @@ it("SchemaQuery create reqest 2", function (done) {
 	}).catch(done);
 });
 
-it("SchemaQuery create reqest 3", function (done) {
+it("SchemaQuery httpPost reqest 3", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -86,7 +86,7 @@ it("SchemaQuery create reqest 3", function (done) {
 			return reject(err);
 		});
 
-		countryModel.create()(req, res);
+		countryModel.httpPost()(req, res);
 
 	}).then( function(res) {
 		assert.equal(201, res.statusCode);
@@ -100,7 +100,7 @@ it("SchemaQuery create reqest 3", function (done) {
 	}).catch(done);
 });
 
-it("SchemaQuery read request", function (done) {
+it("SchemaQuery httpGet request", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -115,7 +115,7 @@ it("SchemaQuery read request", function (done) {
 			return reject(err);
 		});
 
-		countryModel.read()(req, res);
+		countryModel.httpGet()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);
@@ -142,7 +142,7 @@ it("SchemaQuery list request", function (done) {
 		});
 
 
-		countryModel.list()(req, res);
+		countryModel. httpGet()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);
@@ -154,7 +154,7 @@ it("SchemaQuery list request", function (done) {
 	}).catch(done);
 });
 
-it("apiQuery list apiQuery.select, apiQuery.where, client.skip request", function (done) {
+it("apiQuery  httpGet apiQuery.select, apiQuery.where, client.skip request", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -173,7 +173,7 @@ it("apiQuery list apiQuery.select, apiQuery.where, client.skip request", functio
 			},
 			select : 'firstName lastName'
 		}
-		countryModel.list()(req, res);
+		countryModel. httpGet()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);
@@ -187,7 +187,7 @@ it("apiQuery list apiQuery.select, apiQuery.where, client.skip request", functio
 	}).catch(done);
 });
 
-it("SchemaQuery list pageSize request", function (done) {
+it("SchemaQuery  httpGet pageSize request", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -200,7 +200,7 @@ it("SchemaQuery list pageSize request", function (done) {
 			return reject(err);
 		});
 
-		countryModel.list()(req, res);
+		countryModel. httpGet()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);
@@ -212,7 +212,7 @@ it("SchemaQuery list pageSize request", function (done) {
 	}).catch(done);
 });
 
-it("SchemaQuery list filter, select, sort request", function (done) {
+it("SchemaQuery  httpGet filter, select, sort request", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -227,7 +227,7 @@ it("SchemaQuery list filter, select, sort request", function (done) {
 			return reject(err);
 		});
 
-		countryModel.list()(req, res);
+		countryModel.httpGet()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);
@@ -239,7 +239,7 @@ it("SchemaQuery list filter, select, sort request", function (done) {
 	}).catch(done);
 });
 
-it("SchemaQuery list select, sort request", function (done) {
+it("SchemaQuery httpGet select, sort request", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -255,7 +255,7 @@ it("SchemaQuery list select, sort request", function (done) {
 			return reject(err);
 		});
 
-		countryModel.list()(req, res);
+		countryModel.httpGet()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);
@@ -270,7 +270,7 @@ it("SchemaQuery list select, sort request", function (done) {
 	}).catch(done);
 });
 
-it("SchemaQuery list pagination request", function (done) {
+it("SchemaQuery httpGet pagination request", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -286,7 +286,7 @@ it("SchemaQuery list pagination request", function (done) {
 			return reject(err);
 		});
 
-		countryModel.list()(req, res);
+		countryModel.httpGet()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);
@@ -299,7 +299,7 @@ it("SchemaQuery list pagination request", function (done) {
 });
 
 
-it("SchemaQuery list requestQuery.select request", function (done) {
+it("SchemaQuery httpGet requestQuery.select request", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -314,7 +314,7 @@ it("SchemaQuery list requestQuery.select request", function (done) {
 			return reject(err);
 		});
 
-		countryModel.list()(req, res);
+		countryModel.httpGet()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);
@@ -328,7 +328,7 @@ it("SchemaQuery list requestQuery.select request", function (done) {
 	}).catch(done);
 });
 
-it("SchemaQuery list schemaQuery.select, apiQuery.select, requestQuery.select request", function (done) {
+it("SchemaQuery httpGet schemaQuery.select, apiQuery.select, requestQuery.select request", function (done) {
 
 	return new Promise(function(resolve, reject) {
 		var req = httpMock.createRequest({
@@ -346,7 +346,7 @@ it("SchemaQuery list schemaQuery.select, apiQuery.select, requestQuery.select re
 		req.apiQuery = {
 			select : 'name, fistName'
 		}
-		countryModel.list()(req, res);
+		countryModel.httpGet()(req, res);
 
 	}).then( function(res) {
 		assert.equal(200, res.statusCode);

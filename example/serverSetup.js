@@ -20,13 +20,13 @@ function manualRoute(){
 
 	var personModel = mongoose.model('Person', personSchema);
 
-	router.route('/person/list').get(personModel.list()) // Get all items by filter
-	router.route('/person/').post(personModel.create()); // Create new Item
+	router.route('/person/list').get(personModel.httpGet()) // Get all items by filter
+	router.route('/person/').post(personModel.httpPost()); // Create new Item
 
 	router.route('/person/:id')
-		.get(personModel.read()) // Get Item by Id
-		.put(personModel.update()) // Update an Item with a given Id
-		.delete(personModel.delete()); // Delete and Item by Id
+		.get(personModel.httpGet()) // Get Item by Id
+		.put(personModel.httpPut()) // Update an Item with a given Id
+		.delete(personModel.httpDelete()); // Delete and Item by Id
 }
 
 function autoRoute() {
@@ -76,5 +76,5 @@ function customRoute(){
 		req.query.sort = '-name';
 
 		next();
-	}, personModel.list(req, res))
+	}, personModel.httpGet(req, res))
 }
