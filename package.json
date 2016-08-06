@@ -16,11 +16,11 @@
     "mongoose",
     "plugin",
     "route",
-		"express",
-		"delete",
-		"create",
-		"list",
-		"update"
+    "express",
+    "delete",
+    "create",
+    "list",
+    "update"
   ],
   "author": "Giga Chkhikvadze (http://chkhikvadze.com/)",
   "license": "ISC",
@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "faker": "3.1.0",
+    "lodash": "4.14.1",
     "mongoose": "^4.5.5"
   }
 }
